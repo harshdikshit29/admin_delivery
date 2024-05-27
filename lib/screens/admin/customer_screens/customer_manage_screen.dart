@@ -58,7 +58,9 @@ class _CustomerManagementScreenState extends State<CustomerManagementScreen> {
               child: Column(
                 children: [
                   GestureDetector(
-                    onTap: () {Get.to(CustomerDetails());},
+                    onTap: () {
+                      Get.to(CustomerDetails());
+                    },
                     child: Container(
                       width: double.infinity,
                       height: h * .15,

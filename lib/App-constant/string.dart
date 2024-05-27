@@ -47,4 +47,7 @@ class AppString {
   static String world = 'World';
   static String saved = 'Saved';
   static String refer = 'Refrels';
+
+  //buttons
+  
 }

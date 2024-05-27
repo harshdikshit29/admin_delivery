@@ -2,6 +2,7 @@ import 'package:admin_delivery/screens/admin/customer_screens/add_customer_scree
 import 'package:admin_delivery/screens/admin/product_management/add_product_screen.dart';
 import 'package:admin_delivery/screens/admin/product_management/product_description.dart';
 import 'package:admin_delivery/widgets/custom_button.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
@@ -49,22 +50,27 @@ class _ProductManagementState extends State<ProductManagement> {
         padding: EdgeInsets.symmetric(horizontal: w * .05, vertical: h * .02),
         child: Column(
           children: [
-            Container(
-              width: double.infinity,
-              height: h * .15,
-              color: Colors.red,
-              child: Padding(
-                padding: EdgeInsets.symmetric(
-                    horizontal: w * .05, vertical: h * .02),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text('First Name:'),
-                    // Text('Last Name: ${widget.lastName}'),
-                    // Text('Phone Number: ${widget.phoneNumber}'),
-                    // Text('Email: ${widget.email}'),
-                    // Text('Address: ${widget.address}'),
-                  ],
+            GestureDetector(
+              onTap: () {
+                Get.to(ProductDescription());
+              },
+              child: Container(
+                width: double.infinity,
+                height: h * .15,
+                color: Colors.red,
+                child: Padding(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: w * .05, vertical: h * .02),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('First Name:'),
+                      // Text('Last Name: ${widget.lastName}'),
+                      // Text('Phone Number: ${widget.phoneNumber}'),
+                      // Text('Email: ${widget.email}'),
+                      // Text('Address: ${widget.address}'),
+                    ],
+                  ),
                 ),
               ),
             ),

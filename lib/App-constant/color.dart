@@ -15,4 +15,5 @@ class AppColors {
   static Color buttonborderdark = Colors.white;
   static Color buttonlight = Color.fromRGBO(218, 247, 166, 1);
   static Color buttondark = const Color.fromARGB(255, 203, 116, 1);
+  static Color lightgreen = const Color.fromARGB(255, 97, 177, 99);
 }

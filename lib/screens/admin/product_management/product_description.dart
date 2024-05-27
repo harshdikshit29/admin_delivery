@@ -7,7 +7,7 @@ class ProductDescription extends StatefulWidget {
 
 class _ProductDescriptionState extends State<ProductDescription> {
   final String imageUrl =
-      'https://lh3.googleusercontent.com/spp/AGXu5UnLTprkEyQcmKF_Yh4j1AA5EqoxnXsv43WqfcPFh7B7qReVgYJ_RQlb_hYaTZK1KZy_R3QJfKn3o740MfFgHd0mqZp9ikkFO6rV7mJ_NBkoszUN2ZPHnkFgB9v6iQbeydxc9gq_hb1-rcykywLvEqbQJHCG6Z-uUQCMeajygtLW1HhHAaEpGvrW3QEq8HoZejVUh8GYTNE=s512-rw-pd-pc0x00ffffff';
+      'https://images.pexels.com/photos/1006293/pexels-photo-1006293.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1';
 
   int _quantity = 50;
   String _selectedRam = '8GB';
@@ -55,7 +55,7 @@ class _ProductDescriptionState extends State<ProductDescription> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Image.network(
-                imageUrl,
+                'https://images.pexels.com/photos/1006293/pexels-photo-1006293.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
                 height: 300,
                 width: double.infinity,
                 fit: BoxFit.cover,
@@ -82,7 +82,8 @@ class _ProductDescriptionState extends State<ProductDescription> {
                       SizedBox(width: 4),
                       Text(
                         '4.3',
-                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.bold),
                       ),
                       SizedBox(width: 4),
                       Text('(53 reviews)', style: TextStyle(fontSize: 14)),
