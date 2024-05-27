@@ -58,7 +58,7 @@ class _ProductManagementState extends State<ProductManagement> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('First Name:'),
+                    GestureDetector(child: Text('First Name:')),
                     // Text('Last Name: ${widget.lastName}'),
                     // Text('Phone Number: ${widget.phoneNumber}'),
                     // Text('Email: ${widget.email}'),
