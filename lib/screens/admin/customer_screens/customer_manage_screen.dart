@@ -1,4 +1,5 @@
 import 'package:admin_delivery/screens/admin/customer_screens/add_customer_screen.dart';
+import 'package:admin_delivery/screens/admin/customer_screens/customer_details.dart';
 import 'package:admin_delivery/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -56,22 +57,25 @@ class _CustomerManagementScreenState extends State<CustomerManagementScreen> {
                   EdgeInsets.symmetric(horizontal: w * .05, vertical: h * .02),
               child: Column(
                 children: [
-                  Container(
-                    width: double.infinity,
-                    height: h * .15,
-                    color: Colors.red,
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: w * .05, vertical: h * .02),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text('First Name: ${widget.firstName}'),
-                          Text('Last Name: ${widget.lastName}'),
-                          Text('Phone Number: ${widget.phoneNumber}'),
-                          Text('Email: ${widget.email}'),
-                          Text('Address: ${widget.address}'),
-                        ],
+                  GestureDetector(
+                    onTap: () {Get.to(CustomerDetails());},
+                    child: Container(
+                      width: double.infinity,
+                      height: h * .15,
+                      color: Colors.red,
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: w * .05, vertical: h * .02),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text('First Name: ${widget.firstName}'),
+                            Text('Last Name: ${widget.lastName}'),
+                            Text('Phone Number: ${widget.phoneNumber}'),
+                            Text('Email: ${widget.email}'),
+                            Text('Address: ${widget.address}'),
+                          ],
+                        ),
                       ),
                     ),
                   ),
