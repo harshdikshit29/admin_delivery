@@ -1,7 +1,6 @@
 import 'package:admin_delivery/App-constant/color.dart';
 import 'package:admin_delivery/App-constant/images.dart';
 import 'package:admin_delivery/App-constant/string.dart';
-import 'package:admin_delivery/screens/admin/home/admin_home_screen.dart';
 import 'package:admin_delivery/screens/initialScreens/onboarding_screen.dart';
 import 'package:admin_delivery/widgets/custom_button.dart';
 import 'package:admin_delivery/widgets/custom_text.dart';
@@ -55,7 +54,7 @@ class OtpScreen extends StatelessWidget {
                 fieldStyle: FieldStyle.underline,
 
                 onCompleted: (pin) {
-                  print("Completed: " + pin);
+                  debugPrint("Completed: $pin");
                 },
               ),
               SizedBox(

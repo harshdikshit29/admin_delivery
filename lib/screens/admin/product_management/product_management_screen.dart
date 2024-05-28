@@ -1,10 +1,7 @@
-import 'package:admin_delivery/screens/admin/customer_screens/add_customer_screen.dart';
 import 'package:admin_delivery/screens/admin/product_management/add_product_screen.dart';
 import 'package:admin_delivery/screens/admin/product_management/product_description.dart';
 import 'package:admin_delivery/widgets/custom_button.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
 class ProductManagement extends StatefulWidget {

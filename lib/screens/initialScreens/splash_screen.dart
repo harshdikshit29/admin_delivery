@@ -1,10 +1,6 @@
-import 'package:admin_delivery/App-constant/string.dart';
 import 'package:admin_delivery/screens/initialScreens/onboarding_screen.dart';
-import 'package:admin_delivery/widgets/custom_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-import '../../App-constant/color.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
@@ -33,14 +29,7 @@ class SplashScreen extends StatelessWidget {
               height: h * .2,
             ),
           ),
-          // Align(
-          //     alignment: Alignment.bottomCenter,
-          //     child: CustomText(
-          //       text: AppString.appName,
-          //       fontSize: 25,
-          //       textColor: AppColors.linearBlack,
-          //       fontWeight: FontWeight.bold,
-          //     ))
+        
         ],
       ),
     );

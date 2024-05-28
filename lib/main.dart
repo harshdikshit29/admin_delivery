@@ -2,7 +2,6 @@ import 'package:admin_delivery/screens/initialScreens/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-
 void main() {
   // Set the status bar color to black
   // SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(

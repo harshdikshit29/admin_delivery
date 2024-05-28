@@ -1,5 +1,7 @@
+import 'package:admin_delivery/App-constant/color.dart';
 import 'package:admin_delivery/screens/admin/product_management/product_management_screen.dart';
 import 'package:admin_delivery/widgets/custom_button.dart';
+import 'package:admin_delivery/widgets/custom_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -13,7 +15,7 @@ class ProductAdd extends StatefulWidget {
 }
 
 class _ProductAddState extends State<ProductAdd> {
-  String selectedCategory = 'AC';
+  String selectedCategory = 'Select Type';
   TextEditingController productNameController = TextEditingController();
   TextEditingController brandController = TextEditingController();
   TextEditingController modelNumberController = TextEditingController();
@@ -30,42 +32,62 @@ class _ProductAddState extends State<ProductAdd> {
 
   @override
   Widget build(BuildContext context) {
+    var h = MediaQuery.of(context).size.height;
+    var w = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 129, 233, 132),
-        title: Text('Product Listing'),
-        centerTitle: true,
+        title: CustomText(
+          text: "Product Listing",
+          fontSize: 25,
+          textColor: AppColors.linearBlack,
+          fontWeight: FontWeight.bold,
+        ),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: EdgeInsets.symmetric(horizontal: w * .08, vertical: h * .03),
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                'Product Category',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              CustomText(
+                text: 'Product Category',
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                textColor: AppColors.linearBlack,
               ),
-              DropdownButton<String>(
-                value: selectedCategory,
-                onChanged: (String? newValue) {
-                  setState(() {
-                    selectedCategory = newValue!;
-                  });
-                },
-                items: <String>['AC', 'Oven', 'Refrigerator', 'Speaker']
-                    .map<DropdownMenuItem<String>>((String value) {
-                  return DropdownMenuItem<String>(
-                    value: value,
-                    child: Text(value),
-                  );
-                }).toList(),
+              SizedBox(
+                width: double.infinity,
+                child: DropdownButton<String>(
+                  value: selectedCategory,
+                  onChanged: (String? newValue) {
+                    setState(() {
+                      selectedCategory = newValue!;
+                    });
+                  },
+                  items: <String>[
+                    'Select Type',
+                    'AC',
+                    'Oven',
+                    'Refrigerator',
+                    'Speaker'
+                  ].map<DropdownMenuItem<String>>((String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: Text(value),
+                    );
+                  }).toList(),
+                ),
+              ),
+              SizedBox(
+                height: h * .05,
               ),
               TextField(
                 controller: productNameController,
                 decoration: InputDecoration(
                   labelText: 'Product Name',
-                  border: OutlineInputBorder(),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(16),
+                  ),
                 ),
                 keyboardType: TextInputType.text,
                 onChanged: (value) {
@@ -74,12 +96,16 @@ class _ProductAddState extends State<ProductAdd> {
                   });
                 },
               ),
-              SizedBox(height: 16),
+              SizedBox(
+                height: h * .03,
+              ),
               TextField(
                 controller: brandController,
                 decoration: InputDecoration(
                   labelText: 'Product Brand',
-                  border: OutlineInputBorder(),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(16),
+                  ),
                 ),
                 keyboardType: TextInputType.text,
                 onChanged: (value) {
@@ -88,12 +114,16 @@ class _ProductAddState extends State<ProductAdd> {
                   });
                 },
               ),
-              SizedBox(height: 16),
+              SizedBox(
+                height: h * .03,
+              ),
               TextField(
                 controller: modelNumberController,
                 decoration: InputDecoration(
                   labelText: 'Model Number',
-                  border: OutlineInputBorder(),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(16),
+                  ),
                 ),
                 keyboardType: TextInputType.text,
                 onChanged: (value) {
@@ -102,12 +132,16 @@ class _ProductAddState extends State<ProductAdd> {
                   });
                 },
               ),
-              SizedBox(height: 16),
+              SizedBox(
+                height: h * .03,
+              ),
               TextField(
                 controller: productDetailsController,
                 decoration: InputDecoration(
                   labelText: 'Product Details',
-                  border: OutlineInputBorder(),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(16),
+                  ),
                 ),
                 keyboardType: TextInputType.text,
                 onChanged: (value) {
@@ -117,13 +151,15 @@ class _ProductAddState extends State<ProductAdd> {
                 },
               ),
               SizedBox(
-                height: 20,
+                height: h * .03,
               ),
               TextField(
                 controller: quantityController,
                 decoration: InputDecoration(
                   labelText: 'Quantity',
-                  border: OutlineInputBorder(),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(16),
+                  ),
                 ),
                 keyboardType: TextInputType.number,
                 onChanged: (value) {
@@ -132,20 +168,33 @@ class _ProductAddState extends State<ProductAdd> {
                   });
                 },
               ),
-              SizedBox(height: 24),
+              SizedBox(
+                height: h * .05,
+              ),
               Center(
                 child: GestureDetector(
                   onTap: () {
-                    Get.off(ProductManagement(
-                      productDetails: productDetails,
-                      brand: brand,
-                      modelNumber: modelNumber,
-                      productName: productName,
-                      quantity: quantity,
-                      selectedCategory: selectedCategory,
-                    ));
+                    if (productDetails == '' ||
+                        brand == '' ||
+                        modelNumber == '' ||
+                        productName == '' ||
+                        quantity == '' ||
+                        selectedCategory == 'Select Type') {
+                      Get.snackbar('Error', 'Enter Data to Continue',
+                          duration: Duration(seconds: 3));
+                    } else {
+                      Get.off(ProductManagement(
+                        productDetails: productDetails,
+                        brand: brand,
+                        modelNumber: modelNumber,
+                        productName: productName,
+                        quantity: quantity,
+                        selectedCategory: selectedCategory,
+                      ));
+                    }
                   },
                   child: CustomButton(
+                    width: w * .4,
                     buttonText: 'Add',
                   ),
                 ),
