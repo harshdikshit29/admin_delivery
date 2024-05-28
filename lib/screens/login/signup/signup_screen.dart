@@ -29,12 +29,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              widget.id == 1
-                  ? Image.asset(
-                      AppImages.light,
-                      width: w * .35,
-                    )
-                  : Container(),
               Center(
                 child: widget.id == 1
                     ? Image.asset(
@@ -42,7 +36,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         height: h * .28,
                       )
                     : Padding(
-                        padding: EdgeInsets.only(top: h * .2),
+                        padding: EdgeInsets.only(top: h * .1),
                         child: Image.asset(
                           AppImages.delivery,
                           width: w * .5,

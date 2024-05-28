@@ -41,7 +41,13 @@ class AdminHomeScreen extends StatelessWidget {
           ),
           GestureDetector(
             onTap: () {
-              Get.to(ProductManagement());
+              Get.to(ProductManagement(
+                productDetails: '',
+                brand: '',
+                modelNumber: '',
+                productName: '',
+                quantity: '', selectedCategory: '',
+              ));
             },
             child: CustomButton(
               buttonText: 'Product Mangement',

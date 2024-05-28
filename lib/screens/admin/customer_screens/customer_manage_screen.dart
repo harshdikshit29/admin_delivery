@@ -1,6 +1,7 @@
 import 'package:admin_delivery/screens/admin/customer_screens/add_customer_screen.dart';
 import 'package:admin_delivery/screens/admin/customer_screens/customer_details.dart';
 import 'package:admin_delivery/widgets/custom_button.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
@@ -39,6 +40,9 @@ class _CustomerManagementScreenState extends State<CustomerManagementScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text("Empty Data"),
+                  SizedBox(
+                    height: h * .05,
+                  ),
                   GestureDetector(
                     onTap: () {
                       Get.to(CustomerAdd());
@@ -57,29 +61,65 @@ class _CustomerManagementScreenState extends State<CustomerManagementScreen> {
                   EdgeInsets.symmetric(horizontal: w * .05, vertical: h * .02),
               child: Column(
                 children: [
-                  GestureDetector(
-                    onTap: () {
-                      Get.to(CustomerDetails());
-                    },
-                    child: Container(
-                      width: double.infinity,
-                      height: h * .15,
-                      color: Colors.red,
+                  Container(
+                    width: w * 1,
+                    child: Card(
+                      elevation: 1,
                       child: Padding(
                         padding: EdgeInsets.symmetric(
                             horizontal: w * .05, vertical: h * .02),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('First Name: ${widget.firstName}'),
-                            Text('Last Name: ${widget.lastName}'),
-                            Text('Phone Number: ${widget.phoneNumber}'),
-                            Text('Email: ${widget.email}'),
-                            Text('Address: ${widget.address}'),
+                            Row(
+                              children: [
+                                Icon(
+                                  Icons.person,
+                                  size: h * .1,
+                                ),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                        'Customer Name: ${widget.firstName} ${widget.lastName}'),
+                                    Text('Phone Number: ${widget.phoneNumber}'),
+                                    Text('Email: ${widget.email}'),
+                                    Text('Address: ${widget.address}'),
+                                  ],
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: h * .02,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                GestureDetector(
+                                    onTap: () {},
+                                    child: CustomButton(
+                                      buttonText: 'Call',
+                                      width: w * .3,
+                                      height: h * .04,
+                                    )),
+                                GestureDetector(
+                                    onTap: () {
+                                      Get.to(CustomerDetails());
+                                    },
+                                    child: CustomButton(
+                                      buttonText: 'View Profile',
+                                      width: w * .4,
+                                      height: h * .04,
+                                    ))
+                              ],
+                            )
                           ],
                         ),
                       ),
                     ),
+                  ),
+                  SizedBox(
+                    height: h * .05,
                   ),
                   GestureDetector(
                     onTap: () {

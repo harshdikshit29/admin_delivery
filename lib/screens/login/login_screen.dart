@@ -31,20 +31,17 @@ class _LoginScreenState extends State<LoginScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              widget.id == 1
-                  ? Image.asset(
-                      AppImages.light,
-                      width: w * .35,
-                    )
-                  : Container(),
               Center(
                 child: widget.id == 1
-                    ? Image.asset(
-                        AppImages.loginEmail,
-                        height: h * .28,
+                    ? Padding(
+                        padding: EdgeInsets.only(top: h * .1),
+                        child: Image.asset(
+                          AppImages.loginEmail,
+                          height: h * .28,
+                        ),
                       )
                     : Padding(
-                        padding: EdgeInsets.only(top: h * .2),
+                        padding: EdgeInsets.only(top: h * .1),
                         child: Image.asset(
                           AppImages.delivery,
                           width: w * .5,

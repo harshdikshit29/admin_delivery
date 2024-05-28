@@ -1,4 +1,9 @@
+import 'package:admin_delivery/screens/admin/product_management/product_management_screen.dart';
+import 'package:admin_delivery/widgets/custom_button.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:get/get.dart';
 
 class ProductAdd extends StatefulWidget {
   const ProductAdd({super.key});
@@ -8,31 +13,20 @@ class ProductAdd extends StatefulWidget {
 }
 
 class _ProductAddState extends State<ProductAdd> {
-    String selectedCategory = 'AC';
-  final TextEditingController productDetailsController = TextEditingController();
-  final TextEditingController brandController = TextEditingController();
-  final TextEditingController modelNumberController = TextEditingController();
-  final TextEditingController productNameController = TextEditingController();
-  final TextEditingController modelNameController = TextEditingController();
-  final TextEditingController quantityController = TextEditingController();
+  String selectedCategory = 'AC';
+  TextEditingController productNameController = TextEditingController();
+  TextEditingController brandController = TextEditingController();
+  TextEditingController modelNumberController = TextEditingController();
+  TextEditingController productDetailsController = TextEditingController();
+
+  TextEditingController quantityController = TextEditingController();
+  String productDetails = '';
+  String brand = '';
+  String modelNumber = '';
+  String productName = '';
+
+  String quantity = '';
   int currentQuantity = 0;
-
-  void addProduct() {
-    int quantityToAdd = int.tryParse(quantityController.text) ?? 0;
-    setState(() {
-      currentQuantity += quantityToAdd;
-    });
-  }
-
-  void removeProduct() {
-    int quantityToRemove = int.tryParse(quantityController.text) ?? 0;
-    setState(() {
-      currentQuantity -= quantityToRemove;
-      if (currentQuantity < 0) {
-        currentQuantity = 0; // Prevent negative quantities
-      }
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -68,93 +62,94 @@ class _ProductAddState extends State<ProductAdd> {
                 }).toList(),
               ),
               TextField(
-                controller: productDetailsController,
+                controller: productNameController,
                 decoration: InputDecoration(
                   labelText: 'Product Name',
                   border: OutlineInputBorder(),
                 ),
-                maxLines: 1,
+                keyboardType: TextInputType.text,
+                onChanged: (value) {
+                  setState(() {
+                    productName = value;
+                  });
+                },
               ),
               SizedBox(height: 16),
               TextField(
                 controller: brandController,
                 decoration: InputDecoration(
-                  labelText: 'Model Number',
+                  labelText: 'Product Brand',
                   border: OutlineInputBorder(),
                 ),
-                maxLines: 1,
+                keyboardType: TextInputType.text,
+                onChanged: (value) {
+                  setState(() {
+                    brand = value;
+                  });
+                },
               ),
               SizedBox(height: 16),
               TextField(
                 controller: modelNumberController,
                 decoration: InputDecoration(
+                  labelText: 'Model Number',
+                  border: OutlineInputBorder(),
+                ),
+                keyboardType: TextInputType.text,
+                onChanged: (value) {
+                  setState(() {
+                    modelNumber = value;
+                  });
+                },
+              ),
+              SizedBox(height: 16),
+              TextField(
+                controller: productDetailsController,
+                decoration: InputDecoration(
                   labelText: 'Product Details',
                   border: OutlineInputBorder(),
                 ),
-                maxLines: 1,
+                keyboardType: TextInputType.text,
+                onChanged: (value) {
+                  setState(() {
+                    productDetails = value;
+                  });
+                },
               ),
-              SizedBox(height: 30),
-              Text(
-                'Current Quantity: $currentQuantity',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              SizedBox(
+                height: 20,
               ),
-              SizedBox(height: 50),
-              Row(
-                children: [
-                  Expanded(
-                    child: TextField(
-                      controller: productNameController,
-                      decoration: InputDecoration(
-                        labelText: 'Product Name',
-                        border: OutlineInputBorder(),
-                      ),
-                    ),
-                  ),
-                  SizedBox(width: 16),
-                  Expanded(
-                    child: TextField(
-                      controller: modelNameController,
-                      decoration: InputDecoration(
-                        labelText: 'Model Number',
-                        border: OutlineInputBorder(),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(height: 24),
               TextField(
                 controller: quantityController,
-                keyboardType: TextInputType.number,
                 decoration: InputDecoration(
                   labelText: 'Quantity',
                   border: OutlineInputBorder(),
                 ),
+                keyboardType: TextInputType.number,
+                onChanged: (value) {
+                  setState(() {
+                    quantity = value;
+                  });
+                },
               ),
               SizedBox(height: 24),
-              Row(
-                children: [
-                  Expanded(
-                    child: ElevatedButton(
-                      onPressed: addProduct,
-                      child: Text('Add'),
-                      style: ElevatedButton.styleFrom(
-                        padding: EdgeInsets.symmetric(vertical: 16),
-                      ),
-                    ),
+              Center(
+                child: GestureDetector(
+                  onTap: () {
+                    Get.off(ProductManagement(
+                      productDetails: productDetails,
+                      brand: brand,
+                      modelNumber: modelNumber,
+                      productName: productName,
+                      quantity: quantity,
+                      selectedCategory: selectedCategory,
+                    ));
+                  },
+                  child: CustomButton(
+                    buttonText: 'Add',
                   ),
-                  SizedBox(width: 16),
-                  Expanded(
-                    child: ElevatedButton(
-                      onPressed: removeProduct,
-                      child: Text('Remove'),
-                      style: ElevatedButton.styleFrom(
-                        padding: EdgeInsets.symmetric(vertical: 16),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+                ),
+              )
             ],
           ),
         ),
