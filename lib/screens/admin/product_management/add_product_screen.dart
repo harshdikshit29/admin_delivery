@@ -1,4 +1,5 @@
 import 'package:admin_delivery/App-constant/color.dart';
+import 'package:admin_delivery/screens/admin/product_management/product_controller.dart';
 import 'package:admin_delivery/screens/admin/product_management/product_management_screen.dart';
 import 'package:admin_delivery/widgets/custom_button.dart';
 import 'package:admin_delivery/widgets/custom_text.dart';
@@ -15,13 +16,10 @@ class ProductAdd extends StatefulWidget {
 }
 
 class _ProductAddState extends State<ProductAdd> {
-  String selectedCategory = 'Select Type';
-  TextEditingController productNameController = TextEditingController();
-  TextEditingController brandController = TextEditingController();
-  TextEditingController modelNumberController = TextEditingController();
-  TextEditingController productDetailsController = TextEditingController();
+  bool _isLoading = false;
 
-  TextEditingController quantityController = TextEditingController();
+  AddProductController addProductController =
+      Get.put(AddProductController());
   String productDetails = '';
   String brand = '';
   String modelNumber = '';
@@ -58,10 +56,10 @@ class _ProductAddState extends State<ProductAdd> {
               SizedBox(
                 width: double.infinity,
                 child: DropdownButton<String>(
-                  value: selectedCategory,
+                  value: addProductController.selectedCategory,
                   onChanged: (String? newValue) {
                     setState(() {
-                      selectedCategory = newValue!;
+                      addProductController.selectedCategory = newValue!;
                     });
                   },
                   items: <String>[
@@ -177,7 +175,7 @@ class _ProductAddState extends State<ProductAdd> {
                 height: h * .05,
               ),
               TextField(
-                controller: productNameController,
+                controller: addProductController.productNameController,
                 decoration: InputDecoration(
                   labelText: 'Product Name',
                   border: OutlineInputBorder(
@@ -195,7 +193,7 @@ class _ProductAddState extends State<ProductAdd> {
                 height: h * .03,
               ),
               TextField(
-                controller: brandController,
+                controller: addProductController.brandController,
                 decoration: InputDecoration(
                   labelText: 'Product Brand',
                   border: OutlineInputBorder(
@@ -213,7 +211,7 @@ class _ProductAddState extends State<ProductAdd> {
                 height: h * .03,
               ),
               TextField(
-                controller: modelNumberController,
+                controller: addProductController.modelNumberController,
                 decoration: InputDecoration(
                   labelText: 'Model Number',
                   border: OutlineInputBorder(
@@ -231,7 +229,7 @@ class _ProductAddState extends State<ProductAdd> {
                 height: h * .03,
               ),
               TextField(
-                controller: productDetailsController,
+                controller: addProductController.productDetailsController,
                 decoration: InputDecoration(
                   labelText: 'Product Details',
                   border: OutlineInputBorder(
@@ -249,7 +247,7 @@ class _ProductAddState extends State<ProductAdd> {
                 height: h * .03,
               ),
               TextField(
-                controller: quantityController,
+                controller: addProductController.quantityController,
                 decoration: InputDecoration(
                   labelText: 'Quantity',
                   border: OutlineInputBorder(
@@ -265,6 +263,7 @@ class _ProductAddState extends State<ProductAdd> {
               ),
               SizedBox(
                 height: h * .05,
+                
               ),
               Center(
                 child: GestureDetector(
@@ -274,18 +273,11 @@ class _ProductAddState extends State<ProductAdd> {
                         modelNumber == '' ||
                         productName == '' ||
                         quantity == '' ||
-                        selectedCategory == 'Select Type') {
+                        addProductController.selectedCategory == 'Select Type') {
                       Get.snackbar('Error', 'Enter Data to Continue',
                           duration: Duration(seconds: 3));
                     } else {
-                      Get.off(ProductManagement(
-                        productDetails: productDetails,
-                        brand: brand,
-                        modelNumber: modelNumber,
-                        productName: productName,
-                        quantity: quantity,
-                        selectedCategory: selectedCategory,
-                      ));
+                      addProductController.addProductData();
                     }
                   },
                   child: CustomButton(

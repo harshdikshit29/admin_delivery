@@ -5,20 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class ProductManagement extends StatefulWidget {
-  final String productDetails;
-  final String brand;
-  final String modelNumber;
-  final String productName;
-  final String quantity;
-  final String selectedCategory;
   const ProductManagement({
     super.key,
-    required this.productDetails,
-    required this.brand,
-    required this.modelNumber,
-    required this.productName,
-    required this.quantity,
-    required this.selectedCategory,
   });
 
   @override
@@ -34,7 +22,7 @@ class _ProductManagementState extends State<ProductManagement> {
       appBar: AppBar(
         title: Text('Product Management'),
       ),
-      body: widget.productName == ''
+      body: 1 == ''
           ? Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -84,13 +72,13 @@ class _ProductManagementState extends State<ProductManagement> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                        'Category: ${widget.selectedCategory}'),
-                                    Text('Product Name: ${widget.productName}'),
-                                    Text('Brand: ${widget.brand}'),
-                                    Text('Quantity: ${widget.quantity}'),
-                                    Text('Model Number: ${widget.modelNumber}'),
+                                        'Category: '),
+                                    Text('Product Name: '),
+                                    Text('Brand: '),
+                                    Text('Quantity: '),
+                                    Text('Model Number: '),
                                     Text(
-                                        'Product Details: ${widget.productDetails}'),
+                                        'Product Details: '),
                                   ],
                                 ),
                               ],

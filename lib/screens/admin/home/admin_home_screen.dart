@@ -85,12 +85,6 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                       CupertinoIcons.arrow_up_doc_fill,
                       Colors.green,
                       () => Get.to(ProductManagement(
-                            productDetails: '',
-                            brand: '',
-                            modelNumber: '',
-                            productName: '',
-                            quantity: '',
-                            selectedCategory: '',
                           ))),
                   itemDashboard('Deliveries', CupertinoIcons.airplane,
                       Colors.purple, () => onTap('Deliveries')),
