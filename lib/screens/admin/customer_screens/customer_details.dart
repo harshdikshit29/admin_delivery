@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class CustomerDetails extends StatefulWidget {
-  final String name;
+  final int id;
   const CustomerDetails({
     super.key,
-    required this.name,
+    required this.id,
   });
 
   @override
@@ -19,7 +19,7 @@ class _CustomerDetailsState extends State<CustomerDetails> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Customer Details'),
+        title: Text('Customer Details ${widget.id}'),
         centerTitle: true,
       ),
       body: SingleChildScrollView(
@@ -36,7 +36,7 @@ class _CustomerDetailsState extends State<CustomerDetails> {
 
               const SizedBox(height: 10),
               Text(
-                '${widget.name}',
+                '${widget.id}',
                 style: TextStyle(fontSize: 16, fontFamily: 'JosefinSans'),
               ),
 

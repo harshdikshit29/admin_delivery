@@ -83,7 +83,7 @@ class OtpScreen extends StatelessWidget {
               Center(
                 child: GestureDetector(
                   onTap: () {
-                    Get.off(const OnBoardingScreen());
+                    Get.off( OnBoardingScreen());
                   },
                   child: CustomButton(
                     height: h * .05,

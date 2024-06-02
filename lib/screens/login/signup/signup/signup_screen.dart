@@ -181,7 +181,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   ),
                   TextButton(
                     onPressed: () {
-                      Get.to(const OnBoardingScreen());
+                      Get.to(OnBoardingScreen());
                     },
                     child: CustomText(
                       text: AppString.signIn,

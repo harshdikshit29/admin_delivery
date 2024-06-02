@@ -1,5 +1,5 @@
 import 'package:admin_delivery/App-constant/color.dart';
-import 'package:admin_delivery/screens/admin/customer_screens/customer_manage_screen.dart';
+import 'package:admin_delivery/screens/admin/customer_screens/customer_manage/customer_manage_screen.dart';
 import 'package:admin_delivery/screens/admin/product_management/product_management_screen.dart';
 import 'package:admin_delivery/widgets/custom_text.dart';
 import 'package:flutter/cupertino.dart';
@@ -79,13 +79,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                       'Customers',
                       CupertinoIcons.person_2,
                       Colors.deepOrange,
-                      () => Get.to(CustomerManagementScreen(
-                            firstName: '',
-                            lastName: '',
-                            phoneNumber: '',
-                            email: '',
-                            address: '',
-                          ))),
+                      () => Get.to(CustomerManagementScreen())),
                   itemDashboard(
                       'Products',
                       CupertinoIcons.arrow_up_doc_fill,

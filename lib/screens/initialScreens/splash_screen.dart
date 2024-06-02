@@ -12,7 +12,7 @@ class SplashScreen extends StatelessWidget {
 
     Future<void> navigateToLogin() async {
       await Future.delayed(const Duration(seconds: 3));
-      Get.off(const OnBoardingScreen());
+      Get.off(OnBoardingScreen());
     }
 
     navigateToLogin();
@@ -29,7 +29,6 @@ class SplashScreen extends StatelessWidget {
               height: h * .2,
             ),
           ),
-        
         ],
       ),
     );

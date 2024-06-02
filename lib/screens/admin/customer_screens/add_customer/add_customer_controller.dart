@@ -1,5 +1,4 @@
-import 'dart:convert';
-
+import 'package:admin_delivery/screens/admin/customer_screens/customer_manage/customer_manage_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mysql1/mysql1.dart';
@@ -13,7 +12,6 @@ class AddCustomerController extends GetxController {
     emailController.clear();
     addressController.clear();
     cityController.clear();
-    interestController.clear();
     budgetController.clear();
     remarkController.clear();
 
@@ -26,15 +24,14 @@ class AddCustomerController extends GetxController {
   TextEditingController emailController = TextEditingController();
   TextEditingController addressController = TextEditingController();
   TextEditingController cityController = TextEditingController();
-  TextEditingController interestController = TextEditingController();
   TextEditingController budgetController = TextEditingController();
   TextEditingController remarkController = TextEditingController();
+  String selectedCategory = 'Select Type';
 
   var isLoading = false.obs;
 
   Future<void> addCustomerData() async {
     try {
-      print(emailController.text.trim());
       isLoading.value = true;
       final ConnectionSettings settings = ConnectionSettings(
         host: 'srv1495.hstgr.io',
@@ -45,6 +42,7 @@ class AddCustomerController extends GetxController {
       );
       // Connect to the Hostinger database
       final MySqlConnection conn = await MySqlConnection.connect(settings);
+     
 
       // Execute a CREATE TABLE query to create the customer table
       await conn.query('''
@@ -71,27 +69,27 @@ CREATE TABLE IF NOT EXISTS customers (
               emailController.text.trim(),
               addressController.text,
               cityController.text,
-              interestController.text,
+              selectedCategory,
               budgetController.text,
               remarkController.text
             ]);
+        isLoading.value = false;
+        await conn.close();
+        print(insertResults);
+        firstNameController.clear();
+        lastNameController.clear();
+        phoneNumberController.clear();
+        emailController.clear();
+        addressController.clear();
+        cityController.clear();
+        budgetController.clear();
+        remarkController.clear();
+        Get.snackbar('Success', 'Data Stored successfully');
+        Get.off(CustomerManagementScreen());
       } else {
         isLoading.value = false;
         print('Hiii');
       }
-
-      isLoading.value = false;
-      await conn.close();
-      firstNameController.clear();
-      lastNameController.clear();
-      phoneNumberController.clear();
-      emailController.clear();
-      addressController.clear();
-      cityController.clear();
-      interestController.clear();
-      budgetController.clear();
-      remarkController.clear();
-      Get.snackbar('Success', 'Data Stored successfully');
     } catch (e) {
       isLoading.value = false;
       print(Text(e.toString()));
@@ -107,61 +105,3 @@ CREATE TABLE IF NOT EXISTS customers (
     }
   }
 }
-
-
-
-// Future<void> signInWithOTP(BuildContext context, String enteredOtp,
-//     String sentOtp, String number) async {
-//   // Check if the entered OTP matches the one that was sent
-//   if (enteredOtp == sentOtp) {
-//     // Create a ConnectionSettings object with the connection details for your Hostinger database
-//     final ConnectionSettings settings = ConnectionSettings(
-//       host: 'srv665.hstgr.io',
-//       port: 3306,
-//       user: 'u332079037_iwashhubonline', //u332079037_iwashhubonline
-//       password: 'Iwashhub@123', //'Iwashhub@123
-//       db: 'u332079037_iwashhubapp',
-//     );
-
-//     // Connect to the Hostinger database
-//     final MySqlConnection conn = await MySqlConnection.connect(settings);
-
-//     // Execute a CREATE TABLE query to create the users table
-//     await conn.query('''
-// CREATE TABLE IF NOT EXISTS users (
-//   id INT AUTO_INCREMENT PRIMARY KEY,
-//   phone_number VARCHAR(255) NOT NULL,
-//   created_at TIMESTAMP NOT NULL
-// )
-// ''');
-
-//     // Execute a SELECT query to check if a row with the phone number already exists
-//     Results results = await conn
-//         .query('SELECT * FROM users WHERE phone_number = ?', [number]);
-
-//     int userId;
-//     if (results.isEmpty) {
-//       // If the row doesn't exist, insert a new one
-//       Results insertResults = await conn.query(
-//           'INSERT INTO users (phone_number, created_at) VALUES (?, NOW())',
-//           [number]);
-//       userId = insertResults.insertId!;
-//     } else {
-//       // If the row already exists, get the user ID
-//       userId = results.first['id'];
-//     }
-
-//     // Close the database connection
-//     storeUserId(userId);
-//     await conn.close();
-
-//     storeLoginState(true);
-//     Navigator.pushReplacementNamed(context, AddScreen.id);
-//   } else {
-//     ScaffoldMessenger.of(context).showSnackBar(
-//       const SnackBar(
-//         content: Text('The entered OTP is incorrect. Please try again.'),
-//       ),
-//     );
-//   }
-// }
