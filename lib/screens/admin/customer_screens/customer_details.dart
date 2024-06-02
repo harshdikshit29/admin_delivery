@@ -3,9 +3,18 @@ import 'package:admin_delivery/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-class CustomerDetails extends StatelessWidget {
-  const CustomerDetails({super.key});
+class CustomerDetails extends StatefulWidget {
+  final String name;
+  const CustomerDetails({
+    super.key,
+    required this.name,
+  });
 
+  @override
+  State<CustomerDetails> createState() => _CustomerDetailsState();
+}
+
+class _CustomerDetailsState extends State<CustomerDetails> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,8 +35,8 @@ class CustomerDetails extends StatelessWidget {
               const Align(alignment: Alignment.center),
 
               const SizedBox(height: 10),
-              const Text(
-                'Abc',
+              Text(
+                '${widget.name}',
                 style: TextStyle(fontSize: 16, fontFamily: 'JosefinSans'),
               ),
 

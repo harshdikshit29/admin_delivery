@@ -104,7 +104,8 @@ class _CustomerManagementScreenState extends State<CustomerManagementScreen> {
                                     )),
                                 GestureDetector(
                                     onTap: () {
-                                      Get.to(CustomerDetails());
+                                      Get.to(CustomerDetails(
+                                          name: '${widget.firstName} ${widget.lastName}'));
                                     },
                                     child: CustomButton(
                                       buttonText: 'View Profile',
