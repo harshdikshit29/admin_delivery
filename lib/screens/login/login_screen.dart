@@ -8,7 +8,7 @@ import 'package:admin_delivery/widgets/custom_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'signup/password/forget_password.dart';
-import 'signup/signup_screen.dart';
+import 'signup/signup/signup_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   final int id;
