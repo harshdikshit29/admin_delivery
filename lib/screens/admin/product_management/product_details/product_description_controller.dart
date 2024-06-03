@@ -1,18 +1,17 @@
-import 'package:admin_delivery/screens/admin/customer_screens/customer_manage/customer_manage_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mysql1/mysql1.dart';
 
-class CustomerDetailsController extends GetxController {
+class ProductDetailsController extends GetxController {
   @override
   void onInit() {
     super.onInit();
   }
 
   var isLoading = false.obs;
-  var customer = Rxn<Customer>();
+  var product = Rxn<Product>();
 
-  Future<void> getCustomerData(int id) async {
+  Future<void> getProductData(int id) async {
     try {
       isLoading.value = true;
       final ConnectionSettings settings = ConnectionSettings(
@@ -27,25 +26,22 @@ class CustomerDetailsController extends GetxController {
 
       // Execute a SELECT query to check if a row with the phone number already exists
       Results results =
-          await conn.query('SELECT * FROM customers where id = ?', [id]);
+          await conn.query('SELECT * FROM products where id = ?', [id]);
 
       if (results.isNotEmpty) {
         var row = results.first;
-        customer.value = Customer(
+        product.value = Product(
           id: row['id'],
-          firstName: row['first_name'] ?? '',
-          lastName: row['last_name'] ?? '',
-          phoneNumber: row['phone_number'] ?? '',
-          email: row['email'] ?? '',
-          address: row['address'] ?? '',
-          city: row['city'] ?? '',
-          interest: row['interest'] ?? '',
-          budget: row['budget'] ?? '',
-          remark: row['remark'] ?? '',
+          productName: row['(product_name'] ?? '',
+          productBrand: row['brand'] ?? '',
+          modelNumber: row['model_number'] ?? '',
+          productDetails: row['product_details'] ?? '',
+          quantity: row['quantity'] ?? '',
+          productCategory: row['product_category'] ?? '',
         );
       } else {
         Get.snackbar('Empty Data', 'No Data Found');
-        customer.value = null;
+        product.value = null;
       }
 
       isLoading.value = false;
@@ -66,29 +62,23 @@ class CustomerDetailsController extends GetxController {
   }
 }
 
-// Define a Customer class to represent the structure of a customer object
-class Customer {
+// Define a product class to represent the structure of a product object
+class Product {
   final int id;
-  final String firstName;
-  final String lastName;
-  final String phoneNumber;
-  final String email;
-  final String address;
-  final String city;
-  final String interest;
-  final String budget;
-  final String remark;
+  final String productName;
+  final String productBrand;
+  final String modelNumber;
+  final String productDetails;
+  final String quantity;
+  final String productCategory;
 
-  Customer({
+  Product({
     required this.id,
-    required this.firstName,
-    required this.lastName,
-    required this.phoneNumber,
-    required this.email,
-    required this.address,
-    required this.city,
-    required this.interest,
-    required this.budget,
-    required this.remark,
+    required this.productName,
+    required this.productBrand,
+    required this.modelNumber,
+    required this.productDetails,
+    required this.quantity,
+    required this.productCategory,
   });
 }

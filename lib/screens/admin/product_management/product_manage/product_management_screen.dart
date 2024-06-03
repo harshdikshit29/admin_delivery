@@ -1,6 +1,6 @@
 import 'package:admin_delivery/App-constant/color.dart';
 import 'package:admin_delivery/screens/admin/product_management/add_product/add_product_screen.dart';
-import 'package:admin_delivery/screens/admin/product_management/product_description.dart';
+import 'package:admin_delivery/screens/admin/product_management/product_details/product_description.dart';
 import 'package:admin_delivery/screens/admin/product_management/product_manage/product_management_controller.dart';
 import 'package:admin_delivery/widgets/custom_button.dart';
 import 'package:admin_delivery/widgets/custom_text.dart';
@@ -105,8 +105,8 @@ class _ProductManagementState extends State<ProductManagement> {
                                       children: [
                                         Text(
                                             'Product Type: ${product.productCategory}'),
-                                        Text(
-                                            'Product Name:  ${product.productName}'),
+                                        // Text(
+                                        //     'Product Name:  ${product.productName}'),
                                         Text(
                                             'Product Brand: ${product.productBrand}'),
                                         Text(
@@ -122,7 +122,9 @@ class _ProductManagementState extends State<ProductManagement> {
                                       MainAxisAlignment.spaceEvenly,
                                   children: [
                                     GestureDetector(
-                                      onTap: () {},
+                                      onTap: () {
+                                        Get.to(ProductDescription(id: product.id));
+                                      },
                                       child: CustomButton(
                                         buttonText: 'View Product',
                                         width: w * .35,
