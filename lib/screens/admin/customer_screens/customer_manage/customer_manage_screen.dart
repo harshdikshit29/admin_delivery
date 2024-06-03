@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 import '../../../../App-constant/color.dart';
 import '../../../../widgets/custom_button.dart';
 import '../../../../widgets/custom_text.dart';
-import '../customer_details.dart';
+import '../customer_profile/customer_details.dart';
 import 'customer_management_controller.dart';
 
 class CustomerManagementScreen extends StatefulWidget {
