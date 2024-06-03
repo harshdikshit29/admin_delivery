@@ -1,6 +1,6 @@
 import 'package:admin_delivery/App-constant/color.dart';
 import 'package:admin_delivery/screens/admin/customer_screens/customer_manage/customer_manage_screen.dart';
-import 'package:admin_delivery/screens/admin/product_management/product_management_screen.dart';
+import 'package:admin_delivery/screens/admin/product_management/product_manage/product_management_screen.dart';
 import 'package:admin_delivery/widgets/custom_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

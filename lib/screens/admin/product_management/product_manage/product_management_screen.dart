@@ -1,34 +1,35 @@
-import 'package:admin_delivery/screens/admin/customer_screens/add_customer/add_customer_screen.dart';
+import 'package:admin_delivery/App-constant/color.dart';
+import 'package:admin_delivery/screens/admin/product_management/add_product/add_product_screen.dart';
+import 'package:admin_delivery/screens/admin/product_management/product_description.dart';
+import 'package:admin_delivery/screens/admin/product_management/product_manage/product_management_controller.dart';
+import 'package:admin_delivery/widgets/custom_button.dart';
+import 'package:admin_delivery/widgets/custom_text.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:get/get.dart';
 
-import '../../../../App-constant/color.dart';
-import '../../../../widgets/custom_button.dart';
-import '../../../../widgets/custom_text.dart';
-import '../customer_details.dart';
-import 'customer_management_controller.dart';
+class ProductManagement extends StatefulWidget {
+  const ProductManagement({
+    super.key,
+  });
 
-class CustomerManagementScreen extends StatefulWidget {
   @override
-  State<CustomerManagementScreen> createState() =>
-      _CustomerManagementScreenState();
+  State<ProductManagement> createState() => _ProductManagementState();
 }
 
-class _CustomerManagementScreenState extends State<CustomerManagementScreen> {
-  late CustomerManagementController customerManagementController;
+class _ProductManagementState extends State<ProductManagement> {
+  late ProductManagementController productManagementController;
   final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
       GlobalKey<RefreshIndicatorState>();
 
   @override
   void initState() {
     super.initState();
-    customerManagementController = Get.put(CustomerManagementController());
-    customerManagementController.getAllCustomerData();
+    productManagementController = Get.put(ProductManagementController());
+    productManagementController.getAllProductData();
   }
 
   Future<void> _refresh() async {
-    await customerManagementController.getAllCustomerData();
+    await productManagementController.getAllProductData();
   }
 
   @override
@@ -37,15 +38,15 @@ class _CustomerManagementScreenState extends State<CustomerManagementScreen> {
     var w = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
-        title: Text('Customer Management'),
+        title: Text('Product Management'),
         actions: [IconButton(onPressed: _refresh, icon: Icon(Icons.refresh))],
       ),
       body: Obx(() {
-        if (customerManagementController.isLoading.value) {
+        if (productManagementController.isLoading.value) {
           return Center(
             child: CircularProgressIndicator(),
           );
-        } else if (customerManagementController.customers.isEmpty) {
+        } else if (productManagementController.Products.isEmpty) {
           return Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -59,12 +60,12 @@ class _CustomerManagementScreenState extends State<CustomerManagementScreen> {
                 SizedBox(height: h * .05),
                 GestureDetector(
                   onTap: () {
-                    Get.to(CustomerAdd());
+                    Get.to(ProductAdd());
                   },
                   child: CustomButton(
                     height: h * .05,
                     width: w * .4,
-                    buttonText: 'Add Customer',
+                    buttonText: 'Add product',
                   ),
                 ),
               ],
@@ -79,10 +80,9 @@ class _CustomerManagementScreenState extends State<CustomerManagementScreen> {
                 Expanded(
                   child: ListView.builder(
                     physics: BouncingScrollPhysics(),
-                    itemCount: customerManagementController.customers.length,
+                    itemCount: productManagementController.Products.length,
                     itemBuilder: (context, index) {
-                      var customer =
-                          customerManagementController.customers[index];
+                      var product = productManagementController.Products[index];
                       return Container(
                         width: w * 1,
                         child: Card(
@@ -104,11 +104,14 @@ class _CustomerManagementScreenState extends State<CustomerManagementScreen> {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                            'Customer Name: ${customer.firstName} ${customer.lastName}'),
+                                            'Product Type: ${product.productCategory}'),
                                         Text(
-                                            'Phone Number: ${customer.phoneNumber}'),
-                                        Text('Email: ${customer.email}'),
-                                        Text('Address: ${customer.address}'),
+                                            'Product Name:  ${product.productName}'),
+                                        Text(
+                                            'Product Brand: ${product.productBrand}'),
+                                        Text(
+                                            'Model Number: ${product.modelNumber}'),
+                                        Text('Quantity: ${product.quantity}'),
                                       ],
                                     ),
                                   ],
@@ -119,30 +122,21 @@ class _CustomerManagementScreenState extends State<CustomerManagementScreen> {
                                       MainAxisAlignment.spaceEvenly,
                                   children: [
                                     GestureDetector(
-                                      onTap: () async {
-                                        try {
-                                          bool? res =
-                                              await FlutterPhoneDirectCaller
-                                                  .callNumber(
-                                                      customer.phoneNumber);
-                                          print('Call made: $res');
-                                        } catch (e) {
-                                          print('Error: $e');
-                                        }
-                                      },
+                                      onTap: () {},
                                       child: CustomButton(
-                                        buttonText: 'Call Customer',
+                                        buttonText: 'View Product',
                                         width: w * .35,
                                         height: h * .04,
                                       ),
                                     ),
                                     GestureDetector(
                                       onTap: () {
-                                        Get.to(
-                                            CustomerDetails(id: customer.id));
+                                        // Get.to(
+                                        //     CustomerDetails(id: customer.id)
+                                        //     );
                                       },
                                       child: CustomButton(
-                                        buttonText: 'View More',
+                                        buttonText: 'Update Product',
                                         width: w * .4,
                                         height: h * .04,
                                       ),
@@ -159,12 +153,12 @@ class _CustomerManagementScreenState extends State<CustomerManagementScreen> {
                 ),
                 GestureDetector(
                   onTap: () {
-                    Get.to(CustomerAdd());
+                    Get.to(ProductAdd());
                   },
                   child: CustomButton(
                     height: h * .05,
                     width: w * .4,
-                    buttonText: 'Add Customer',
+                    buttonText: 'Add Product',
                   ),
                 ),
               ],

@@ -1,6 +1,6 @@
 import 'package:admin_delivery/App-constant/color.dart';
-import 'package:admin_delivery/screens/admin/product_management/product_controller.dart';
-import 'package:admin_delivery/screens/admin/product_management/product_management_screen.dart';
+import 'package:admin_delivery/screens/admin/product_management/add_product/add_product_controller.dart';
+import 'package:admin_delivery/screens/admin/product_management/product_manage/product_management_screen.dart';
 import 'package:admin_delivery/widgets/custom_button.dart';
 import 'package:admin_delivery/widgets/custom_text.dart';
 import 'package:flutter/cupertino.dart';
@@ -18,8 +18,7 @@ class ProductAdd extends StatefulWidget {
 class _ProductAddState extends State<ProductAdd> {
   bool _isLoading = false;
 
-  AddProductController addProductController =
-      Get.put(AddProductController());
+  AddProductController addProductController = Get.put(AddProductController());
   String productDetails = '';
   String brand = '';
   String modelNumber = '';
@@ -64,105 +63,104 @@ class _ProductAddState extends State<ProductAdd> {
                   },
                   items: <String>[
                     'Select Type',
-    
-"Air purifier",
-"Air conditioner",
-"Alarm clock",
-"Backup charger",
-"Bread maker",
-"Banknote counter",
-"Blender",
-"Bluetooth speaker",
-"Bulb",
-"Calculator",
-"Car toy",
-"Ceiling fan",
-"Chandelier",
-"Clock",
-"Clothes dryer",
-"Coffee maker",
-"Computer",
-"Copier",
-"Curling iron",
-"Digital camera",
-"Dishwasher",
-"Doorbell camera",
-"Drill",
-"Dvd player",
-"Earphones",
-"Electric frying pan",
-"Electric grill",
-"Electric guitar",
-"Electric pencil sharpener",
-"Electric razor",
-"Electric stove",
-"Exhaust fan",
-"External hard drive",
-"Fan",
-"Facial cleansing machine",
-"Fax",
-"Fish tank",
-"Floor lamp",
-"Game controller",
-"Grandfather clock",
-"Hair dryer",
-"Headset",
-"Inkjet printer",
-"iPod",
-"Iron",
-"Juicer",
-"Kettle",
-"Kitchen scale",
-"Hair straightening machine",
-"Laser printer",
-"Lawn mower",
-"Lift",
-"Meat grinder",
-"Microphone",
-"Microwave",
-"Mixer",
-"Monitor",
-"Mosquito racket",
-"Mouse",
-"Mp3 player",
-"Oil-free fryer",
-"Piano",
-"Oven",
-"Plotter",
-"Pressure cooker",
-"Printer",
-"Projector",
-"Radiator",
-"Radio",
-"Reading lamp",
-"Refrigerator",
-"Remote control",
-"Rice cooker",
-"Safe",
-"Robotic vacuum cleaner",
-"Sandwich maker",
-"Scale",
-"Scanner",
-"Sewing machine",
-"Smart television",
-"Smartphone",
-"Speakers",
-"Tablet",
-"Television",
-"Timer",
-"Toaster",
-"Torch",
-"USB drive",
-"Vacuum cleaner",
-"Walkie-talkie",
-"Washing machine",
-"Watch",
-"Water pumps",
-"Water purifier",
-"Wall fan",
-"Water heater",
-"Webcam",
-"Wifi modem",
+                    "Air purifier",
+                    "Air conditioner",
+                    "Alarm clock",
+                    "Backup charger",
+                    "Bread maker",
+                    "Banknote counter",
+                    "Blender",
+                    "Bluetooth speaker",
+                    "Bulb",
+                    "Calculator",
+                    "Car toy",
+                    "Ceiling fan",
+                    "Chandelier",
+                    "Clock",
+                    "Clothes dryer",
+                    "Coffee maker",
+                    "Computer",
+                    "Copier",
+                    "Curling iron",
+                    "Digital camera",
+                    "Dishwasher",
+                    "Doorbell camera",
+                    "Drill",
+                    "Dvd player",
+                    "Earphones",
+                    "Electric frying pan",
+                    "Electric grill",
+                    "Electric guitar",
+                    "Electric pencil sharpener",
+                    "Electric razor",
+                    "Electric stove",
+                    "Exhaust fan",
+                    "External hard drive",
+                    "Fan",
+                    "Facial cleansing machine",
+                    "Fax",
+                    "Fish tank",
+                    "Floor lamp",
+                    "Game controller",
+                    "Grandfather clock",
+                    "Hair dryer",
+                    "Headset",
+                    "Inkjet printer",
+                    "iPod",
+                    "Iron",
+                    "Juicer",
+                    "Kettle",
+                    "Kitchen scale",
+                    "Hair straightening machine",
+                    "Laser printer",
+                    "Lawn mower",
+                    "Lift",
+                    "Meat grinder",
+                    "Microphone",
+                    "Microwave",
+                    "Mixer",
+                    "Monitor",
+                    "Mosquito racket",
+                    "Mouse",
+                    "Mp3 player",
+                    "Oil-free fryer",
+                    "Piano",
+                    "Oven",
+                    "Plotter",
+                    "Pressure cooker",
+                    "Printer",
+                    "Projector",
+                    "Radiator",
+                    "Radio",
+                    "Reading lamp",
+                    "Refrigerator",
+                    "Remote control",
+                    "Rice cooker",
+                    "Safe",
+                    "Robotic vacuum cleaner",
+                    "Sandwich maker",
+                    "Scale",
+                    "Scanner",
+                    "Sewing machine",
+                    "Smart television",
+                    "Smartphone",
+                    "Speakers",
+                    "Tablet",
+                    "Television",
+                    "Timer",
+                    "Toaster",
+                    "Torch",
+                    "USB drive",
+                    "Vacuum cleaner",
+                    "Walkie-talkie",
+                    "Washing machine",
+                    "Watch",
+                    "Water pumps",
+                    "Water purifier",
+                    "Wall fan",
+                    "Water heater",
+                    "Webcam",
+                    "Wifi modem",
                   ].map<DropdownMenuItem<String>>((String value) {
                     return DropdownMenuItem<String>(
                       value: value,
@@ -263,28 +261,33 @@ class _ProductAddState extends State<ProductAdd> {
               ),
               SizedBox(
                 height: h * .05,
-                
               ),
               Center(
-                child: GestureDetector(
-                  onTap: () {
-                    if (productDetails == '' ||
-                        brand == '' ||
-                        modelNumber == '' ||
-                        productName == '' ||
-                        quantity == '' ||
-                        addProductController.selectedCategory == 'Select Type') {
-                      Get.snackbar('Error', 'Enter Data to Continue',
-                          duration: Duration(seconds: 3));
-                    } else {
-                      addProductController.addProductData();
-                    }
-                  },
-                  child: CustomButton(
-                    width: w * .4,
-                    buttonText: 'Add',
-                  ),
-                ),
+                child: addProductController.isLoading.value
+                    ? Center(
+                        child: CircularProgressIndicator(
+                        color: Colors.blue,
+                      ))
+                    : GestureDetector(
+                        onTap: () {
+                          if (productDetails == '' ||
+                              brand == '' ||
+                              modelNumber == '' ||
+                              productName == '' ||
+                              quantity == '' ||
+                              addProductController.selectedCategory ==
+                                  'Select Type') {
+                            Get.snackbar('Error', 'Enter Data to Continue',
+                                duration: Duration(seconds: 3));
+                          } else {
+                            addProductController.addProductData();
+                          }
+                        },
+                        child: CustomButton(
+                          width: w * .4,
+                          buttonText: 'Add',
+                        ),
+                      ),
               )
             ],
           ),
