@@ -2,8 +2,10 @@ import 'package:admin_delivery/App-constant/color.dart';
 import 'package:admin_delivery/screens/admin/customer_screens/add_customer/add_customer_controller.dart';
 import 'package:admin_delivery/widgets/custom_button.dart';
 import 'package:admin_delivery/widgets/custom_text.dart';
+import 'package:admin_delivery/widgets/product_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_searchable_dropdown/flutter_searchable_dropdown.dart';
 import 'package:get/get.dart';
 
 class CustomerAdd extends StatefulWidget {
@@ -18,6 +20,7 @@ class _CustomerAddState extends State<CustomerAdd> {
 
   AddCustomerController addCustomerController =
       Get.put(AddCustomerController());
+  final ProductList productList = ProductList();
   String a = '';
   String b = '';
   String c = '';
@@ -175,121 +178,45 @@ class _CustomerAddState extends State<CustomerAdd> {
                                 textColor: AppColors.linearBlack),
                             SizedBox(
                               width: double.infinity,
-                              child: DropdownButton<String>(
-                                value: addCustomerController.selectedCategory,
-                                onChanged: (String? newValue) {
-                                  setState(() {
-                                    addCustomerController.selectedCategory =
-                                        newValue!;
-                                  });
-                                },
-                                items: <String>[
-                                  'Select Type',
-                                  "Air purifier",
-                                  "Air conditioner",
-                                  "Alarm clock",
-                                  "Backup charger",
-                                  "Bread maker",
-                                  "Banknote counter",
-                                  "Blender",
-                                  "Bluetooth speaker",
-                                  "Bulb",
-                                  "Calculator",
-                                  "Car toy",
-                                  "Ceiling fan",
-                                  "Chandelier",
-                                  "Clock",
-                                  "Clothes dryer",
-                                  "Coffee maker",
-                                  "Computer",
-                                  "Copier",
-                                  "Curling iron",
-                                  "Digital camera",
-                                  "Dishwasher",
-                                  "Doorbell camera",
-                                  "Drill",
-                                  "Dvd player",
-                                  "Earphones",
-                                  "Electric frying pan",
-                                  "Electric grill",
-                                  "Electric guitar",
-                                  "Electric pencil sharpener",
-                                  "Electric razor",
-                                  "Electric stove",
-                                  "Exhaust fan",
-                                  "External hard drive",
-                                  "Fan",
-                                  "Facial cleansing machine",
-                                  "Fax",
-                                  "Fish tank",
-                                  "Floor lamp",
-                                  "Game controller",
-                                  "Grandfather clock",
-                                  "Hair dryer",
-                                  "Headset",
-                                  "Inkjet printer",
-                                  "iPod",
-                                  "Iron",
-                                  "Juicer",
-                                  "Kettle",
-                                  "Kitchen scale",
-                                  "Hair straightening machine",
-                                  "Laser printer",
-                                  "Lawn mower",
-                                  "Lift",
-                                  "Meat grinder",
-                                  "Microphone",
-                                  "Microwave",
-                                  "Mixer",
-                                  "Monitor",
-                                  "Mosquito racket",
-                                  "Mouse",
-                                  "Mp3 player",
-                                  "Oil-free fryer",
-                                  "Piano",
-                                  "Oven",
-                                  "Plotter",
-                                  "Pressure cooker",
-                                  "Printer",
-                                  "Projector",
-                                  "Radiator",
-                                  "Radio",
-                                  "Reading lamp",
-                                  "Refrigerator",
-                                  "Remote control",
-                                  "Rice cooker",
-                                  "Safe",
-                                  "Robotic vacuum cleaner",
-                                  "Sandwich maker",
-                                  "Scale",
-                                  "Scanner",
-                                  "Sewing machine",
-                                  "Smart television",
-                                  "Smartphone",
-                                  "Speakers",
-                                  "Tablet",
-                                  "Television",
-                                  "Timer",
-                                  "Toaster",
-                                  "Torch",
-                                  "USB drive",
-                                  "Vacuum cleaner",
-                                  "Walkie-talkie",
-                                  "Washing machine",
-                                  "Watch",
-                                  "Water pumps",
-                                  "Water purifier",
-                                  "Wall fan",
-                                  "Water heater",
-                                  "Webcam",
-                                  "Wifi modem",
-                                ].map<DropdownMenuItem<String>>((String value) {
+                              child: SearchableDropdown.single(
+                                items:
+                                    productList.product.map((String product) {
                                   return DropdownMenuItem<String>(
-                                    value: value,
-                                    child: Text(value),
+                                    value: product,
+                                    child: Text(product),
                                   );
                                 }).toList(),
+                                value: addCustomerController.selectedCategory,
+                                hint: "Select one",
+                                searchHint: "Select one",
+                                onChanged: (value) {
+                                  setState(() {
+                                    addCustomerController.selectedCategory =
+                                        value;
+                                  });
+                                },
+                                isExpanded: true,
                               ),
+                              // DropdownButtonFormField<String>(
+                              //   value: addCustomerController.selectedCategory,
+                              //   onChanged: (String? newValue) {
+                              //     setState(() {
+                              //       addCustomerController.selectedCategory =
+                              //           newValue!;
+                              //     });
+                              //   },
+                              //   items:
+                              //       productList.product.map((String product) {
+                              //     return DropdownMenuItem<String>(
+                              //       value: product,
+                              //       child: Text(product),
+                              //     );
+                              //   }).toList(),
+                              //   decoration: InputDecoration(
+                              //     border:
+                              //         OutlineInputBorder(), // Optional: Add border
+                              //   ),
+                              // ),
                             ),
                             SizedBox(height: h * .03),
                             TextFormField(

@@ -1,3 +1,4 @@
+import 'package:admin_delivery/api/api.dart';
 import 'package:admin_delivery/screens/admin/customer_screens/customer_manage/customer_manage_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -15,15 +16,7 @@ class CustomerManagementController extends GetxController {
   Future<void> getAllCustomerData() async {
     try {
       isLoading.value = true;
-      final ConnectionSettings settings = ConnectionSettings(
-        host: 'srv1495.hstgr.io',
-        port: 3306,
-        user: 'u801886947_friendsdigital',
-        password: 'Friends_Digital@123@',
-        db: 'u801886947_friendsdigital',
-      );
-      // Connect to the Hostinger database
-      final MySqlConnection conn = await MySqlConnection.connect(settings);
+      final MySqlConnection conn = await DatabaseManager.connect();
 
       // Execute a SELECT query to check if a row with the phone number already exists
       Results results = await conn.query('SELECT * FROM customers');

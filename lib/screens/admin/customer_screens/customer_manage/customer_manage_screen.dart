@@ -20,11 +20,14 @@ class _CustomerManagementScreenState extends State<CustomerManagementScreen> {
   final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
       GlobalKey<RefreshIndicatorState>();
 
+  String searchQuery = '';
+
   @override
   void initState() {
     super.initState();
     customerManagementController = Get.put(CustomerManagementController());
     customerManagementController.getAllCustomerData();
+    _refresh();
   }
 
   Future<void> _refresh() async {
@@ -71,92 +74,121 @@ class _CustomerManagementScreenState extends State<CustomerManagementScreen> {
             ),
           );
         } else {
+          List<Customer> filteredCustomers = customerManagementController
+              .customers
+              .where((customer) => customer.phoneNumber.contains(searchQuery))
+              .toList();
           return RefreshIndicator(
             key: _refreshIndicatorKey,
             onRefresh: _refresh,
             child: Column(
               children: [
-                Expanded(
-                  child: ListView.builder(
-                    physics: BouncingScrollPhysics(),
-                    itemCount: customerManagementController.customers.length,
-                    itemBuilder: (context, index) {
-                      var customer =
-                          customerManagementController.customers[index];
-                      return Container(
-                        width: w * 1,
-                        child: Card(
-                          elevation: 1,
-                          child: Padding(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: w * .05, vertical: h * .02),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Row(
-                                  children: [
-                                    Icon(
-                                      Icons.person,
-                                      size: h * .1,
-                                    ),
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                            'Customer Name: ${customer.firstName} ${customer.lastName}'),
-                                        Text(
-                                            'Phone Number: ${customer.phoneNumber}'),
-                                        Text('Email: ${customer.email}'),
-                                        Text('Address: ${customer.address}'),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                                SizedBox(height: h * .02),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    GestureDetector(
-                                      onTap: () async {
-                                        try {
-                                          bool? res =
-                                              await FlutterPhoneDirectCaller
-                                                  .callNumber(
-                                                      customer.phoneNumber);
-                                          print('Call made: $res');
-                                        } catch (e) {
-                                          print('Error: $e');
-                                        }
-                                      },
-                                      child: CustomButton(
-                                        buttonText: 'Call Customer',
-                                        width: w * .35,
-                                        height: h * .04,
-                                      ),
-                                    ),
-                                    GestureDetector(
-                                      onTap: () {
-                                        Get.to(
-                                            CustomerDetails(id: customer.id));
-                                      },
-                                      child: CustomButton(
-                                        buttonText: 'View More',
-                                        width: w * .4,
-                                        height: h * .04,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
+                Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: TextField(
+                    decoration: const InputDecoration(
+                      prefixIcon: Icon(Icons.search_rounded),
+                      labelText: "Search by Phone Number",
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(40),
                         ),
-                      );
+                      ),
+                    ),
+                    keyboardType: TextInputType.number,
+                    onChanged: (value) {
+                      setState(() {
+                        searchQuery = value;
+                      });
                     },
                   ),
                 ),
+                if (filteredCustomers.isNotEmpty)
+                  Expanded(
+                    child: ListView.builder(
+                      physics: BouncingScrollPhysics(),
+                      itemCount: filteredCustomers.length,
+                      itemBuilder: (context, index) {
+                        var customer = filteredCustomers[index];
+                        return Container(
+                          width: w * 1,
+                          child: Card(
+                            elevation: 1,
+                            child: Padding(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: w * .05, vertical: h * .02),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    children: [
+                                      Icon(
+                                        Icons.person,
+                                        size: h * .1,
+                                      ),
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                              'Customer Name: ${customer.firstName} ${customer.lastName}'),
+                                          Text(
+                                              'Phone Number: ${customer.phoneNumber}'),
+                                          Text('Email: ${customer.email}'),
+                                          Text('Address: ${customer.address}'),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(height: h * .02),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      GestureDetector(
+                                        onTap: () async {
+                                          try {
+                                            bool? res =
+                                                await FlutterPhoneDirectCaller
+                                                    .callNumber(
+                                                        customer.phoneNumber);
+                                            print('Call made: $res');
+                                          } catch (e) {
+                                            print('Error: $e');
+                                          }
+                                        },
+                                        child: CustomButton(
+                                          buttonText: 'Call Customer',
+                                          width: w * .35,
+                                          height: h * .04,
+                                        ),
+                                      ),
+                                      GestureDetector(
+                                        onTap: () {
+                                          Get.to(
+                                              CustomerDetails(id: customer.id));
+                                        },
+                                        child: CustomButton(
+                                          buttonText: 'View More',
+                                          width: w * .4,
+                                          height: h * .04,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  )
+                else
+                  Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: Text('No customers found with this phone number'),
+                  ),
                 GestureDetector(
                   onTap: () {
                     Get.to(CustomerAdd());

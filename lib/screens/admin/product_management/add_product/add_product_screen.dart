@@ -3,9 +3,11 @@ import 'package:admin_delivery/screens/admin/product_management/add_product/add_
 import 'package:admin_delivery/screens/admin/product_management/product_manage/product_management_screen.dart';
 import 'package:admin_delivery/widgets/custom_button.dart';
 import 'package:admin_delivery/widgets/custom_text.dart';
+import 'package:admin_delivery/widgets/product_list.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_searchable_dropdown/flutter_searchable_dropdown.dart';
 import 'package:get/get.dart';
 
 class ProductAdd extends StatefulWidget {
@@ -19,6 +21,7 @@ class _ProductAddState extends State<ProductAdd> {
   bool _isLoading = false;
 
   AddProductController addProductController = Get.put(AddProductController());
+  final ProductList productList = ProductList();
   String productDetails = '';
   String brand = '';
   String modelNumber = '';
@@ -54,120 +57,40 @@ class _ProductAddState extends State<ProductAdd> {
               ),
               SizedBox(
                 width: double.infinity,
-                child: DropdownButton<String>(
-                  value: addProductController.selectedCategory,
-                  onChanged: (String? newValue) {
-                    setState(() {
-                      addProductController.selectedCategory = newValue!;
-                    });
-                  },
-                  items: <String>[
-                    'Select Type',
-                    "Air purifier",
-                    "Air conditioner",
-                    "Alarm clock",
-                    "Backup charger",
-                    "Bread maker",
-                    "Banknote counter",
-                    "Blender",
-                    "Bluetooth speaker",
-                    "Bulb",
-                    "Calculator",
-                    "Car toy",
-                    "Ceiling fan",
-                    "Chandelier",
-                    "Clock",
-                    "Clothes dryer",
-                    "Coffee maker",
-                    "Computer",
-                    "Copier",
-                    "Curling iron",
-                    "Digital camera",
-                    "Dishwasher",
-                    "Doorbell camera",
-                    "Drill",
-                    "Dvd player",
-                    "Earphones",
-                    "Electric frying pan",
-                    "Electric grill",
-                    "Electric guitar",
-                    "Electric pencil sharpener",
-                    "Electric razor",
-                    "Electric stove",
-                    "Exhaust fan",
-                    "External hard drive",
-                    "Fan",
-                    "Facial cleansing machine",
-                    "Fax",
-                    "Fish tank",
-                    "Floor lamp",
-                    "Game controller",
-                    "Grandfather clock",
-                    "Hair dryer",
-                    "Headset",
-                    "Inkjet printer",
-                    "iPod",
-                    "Iron",
-                    "Juicer",
-                    "Kettle",
-                    "Kitchen scale",
-                    "Hair straightening machine",
-                    "Laser printer",
-                    "Lawn mower",
-                    "Lift",
-                    "Meat grinder",
-                    "Microphone",
-                    "Microwave",
-                    "Mixer",
-                    "Monitor",
-                    "Mosquito racket",
-                    "Mouse",
-                    "Mp3 player",
-                    "Oil-free fryer",
-                    "Piano",
-                    "Oven",
-                    "Plotter",
-                    "Pressure cooker",
-                    "Printer",
-                    "Projector",
-                    "Radiator",
-                    "Radio",
-                    "Reading lamp",
-                    "Refrigerator",
-                    "Remote control",
-                    "Rice cooker",
-                    "Safe",
-                    "Robotic vacuum cleaner",
-                    "Sandwich maker",
-                    "Scale",
-                    "Scanner",
-                    "Sewing machine",
-                    "Smart television",
-                    "Smartphone",
-                    "Speakers",
-                    "Tablet",
-                    "Television",
-                    "Timer",
-                    "Toaster",
-                    "Torch",
-                    "USB drive",
-                    "Vacuum cleaner",
-                    "Walkie-talkie",
-                    "Washing machine",
-                    "Watch",
-                    "Water pumps",
-                    "Water purifier",
-                    "Wall fan",
-                    "Water heater",
-                    "Webcam",
-                    "Wifi modem",
-                  ].map<DropdownMenuItem<String>>((String value) {
+                child: SearchableDropdown.single(
+                  items: productList.product.map((String product) {
                     return DropdownMenuItem<String>(
-                      value: value,
-                      child: Text(value),
+                      value: product,
+                      child: Text(product),
                     );
                   }).toList(),
+                  value: addProductController.selectedCategory,
+                  hint: "Select one",
+                  searchHint: "Select one",
+                  onChanged: (value) {
+                    setState(() {
+                      addProductController.selectedCategory = value;
+                    });
+                  },
+                  isExpanded: true,
                 ),
+                // DropdownButtonFormField<String>(
+                //   value: addProductController.selectedCategory,
+                //   onChanged: (String? newValue) {
+                //     setState(() {
+                //       addProductController.selectedCategory = newValue!;
+                //     });
+                //   },
+                //   items: productList.product.map((String product) {
+                //     return DropdownMenuItem<String>(
+                //       value: product,
+                //       child: Text(product),
+                //     );
+                //   }).toList(),
+                //   decoration: InputDecoration(
+                //     border: OutlineInputBorder(), // Optional: Add border
+                //   ),
+                // ),
               ),
               SizedBox(
                 height: h * .05,

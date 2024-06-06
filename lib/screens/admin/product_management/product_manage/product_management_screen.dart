@@ -26,11 +26,14 @@ class _ProductManagementState extends State<ProductManagement> {
     super.initState();
     productManagementController = Get.put(ProductManagementController());
     productManagementController.getAllProductData();
+    _refresh();
   }
 
   Future<void> _refresh() async {
     await productManagementController.getAllProductData();
   }
+
+  String searchQuery = '';
 
   @override
   Widget build(BuildContext context) {
@@ -72,17 +75,41 @@ class _ProductManagementState extends State<ProductManagement> {
             ),
           );
         } else {
+          List<Product> filteredProducts =
+              productManagementController.Products.where((product) => product
+                  .productCategory
+                  .toLowerCase()
+                  .contains(searchQuery.toLowerCase())).toList();
           return RefreshIndicator(
             key: _refreshIndicatorKey,
             onRefresh: _refresh,
             child: Column(
               children: [
+                Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: TextField(
+                    decoration: const InputDecoration(
+                      prefixIcon: Icon(Icons.search_rounded),
+                      labelText: "Search by Product Type",
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(40),
+                        ),
+                      ),
+                    ),
+                    onChanged: (value) {
+                      setState(() {
+                        searchQuery = value;
+                      });
+                    },
+                  ),
+                ),
                 Expanded(
                   child: ListView.builder(
                     physics: BouncingScrollPhysics(),
-                    itemCount: productManagementController.Products.length,
+                    itemCount: filteredProducts.length,
                     itemBuilder: (context, index) {
-                      var product = productManagementController.Products[index];
+                      var product = filteredProducts[index];
                       return Container(
                         width: w * 1,
                         child: Card(
@@ -123,7 +150,8 @@ class _ProductManagementState extends State<ProductManagement> {
                                   children: [
                                     GestureDetector(
                                       onTap: () {
-                                        Get.to(ProductDescription(id: product.id));
+                                        Get.to(
+                                            ProductDescription(id: product.id));
                                       },
                                       child: CustomButton(
                                         buttonText: 'View Product',
