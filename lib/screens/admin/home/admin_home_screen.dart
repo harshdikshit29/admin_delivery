@@ -2,6 +2,7 @@ import 'package:admin_delivery/App-constant/color.dart';
 import 'package:admin_delivery/screens/admin/customer_screens/customer_manage/customer_manage_screen.dart';
 import 'package:admin_delivery/screens/admin/product_management/product_manage/product_management_screen.dart';
 import 'package:admin_delivery/widgets/custom_text.dart';
+import 'package:admin_delivery/widgets/log_out.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -80,12 +81,8 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                       CupertinoIcons.person_2,
                       Colors.deepOrange,
                       () => Get.to(CustomerManagementScreen())),
-                  itemDashboard(
-                      'Products',
-                      CupertinoIcons.arrow_up_doc_fill,
-                      Colors.green,
-                      () => Get.to(ProductManagement(
-                          ))),
+                  itemDashboard('Products', CupertinoIcons.arrow_up_doc_fill,
+                      Colors.green, () => Get.to(ProductManagement())),
                   itemDashboard('Deliveries', CupertinoIcons.airplane,
                       Colors.purple, () => onTap('Deliveries')),
                   itemDashboard('Delivery Managers', CupertinoIcons.person,
@@ -99,8 +96,14 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                       () => onTap('Payments')),
                   itemDashboard('Queries', CupertinoIcons.question_circle,
                       Colors.blue, () => onTap('Queries')),
-                  itemDashboard('Stores', CupertinoIcons.house_fill,
-                      Colors.pinkAccent, () => onTap('Stores')),
+                  itemDashboard(
+                      'LogOUt', CupertinoIcons.house_fill, Colors.pinkAccent,
+                      () {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) => logOutPopup(context),
+                    );
+                  }),
                 ],
               ),
             ),

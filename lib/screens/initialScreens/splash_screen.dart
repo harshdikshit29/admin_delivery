@@ -1,4 +1,4 @@
-import 'package:admin_delivery/screens/initialScreens/onboarding_screen.dart';
+import 'package:admin_delivery/screens/initialScreens/initial_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -12,7 +12,7 @@ class SplashScreen extends StatelessWidget {
 
     Future<void> navigateToLogin() async {
       await Future.delayed(const Duration(seconds: 3));
-      Get.off(OnBoardingScreen());
+      Get.off(InitialScreen());
     }
 
     navigateToLogin();
